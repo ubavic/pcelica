@@ -33,14 +33,16 @@ const shake = () => {
     setTimeout(() => box.classList.remove("shakeAnimation"), 200);
 }
 
-const checkWord = () =>
-    fetch('/words', {
+const checkWord = () => {
+    if (word === "") return
+    
+    return fetch('/words', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         method: "POST",
-        body: JSON.stringify({Word: word})
+        body: JSON.stringify({Word: word.toLowerCase()})
     }).then(res => {
         if (res.ok) return res.json()
 
@@ -55,7 +57,7 @@ const checkWord = () =>
             shake()
         }
     }).catch(r => {})
-
+}
 
 const setLetters = () => {
     for (i = 0; i < 7; i++) {
