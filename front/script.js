@@ -1,7 +1,7 @@
 var word = "";
 var points;
 
-var letters = ['У', 'Љ', 'А', 'В', 'Н', 'E', 'Б']
+var letters = ['У', 'Т', 'Р', 'В', 'Њ', 'А', 'Е']
 
 const ranks =
     [
