@@ -28,7 +28,7 @@ main {
 
 #hive {
     max-width: 400px;
-    margin: 1rem 0;
+    margin: 1rem auto;
 }
 
 #buttons {
@@ -47,6 +47,7 @@ main {
     font-size: 1.2rem;
     padding: 0.5rem;
     border-radius: 50px;
+    margin-top: 2rem;
 }
 
 button {
@@ -68,10 +69,18 @@ button:hover {
     background-color: #f6e9a7;
 }
 
-
 .hex {
     transition: all 0.2s ease-in-out;
     cursor: pointer;
+}
+
+.hex text {
+    fill: #000;
+    transition: fill 0.2s ease-in-out;
+}
+
+.hex .faded-text {
+    fill: #ece4bc;
 }
 
 .hex:hover {
@@ -88,4 +97,15 @@ button:hover {
 	20%, 40%, 60%      {transform: translateX(5px);}
 	80%                {transform: translateX(3px);}
 	90%                {transform: translateX(-3px);}
+}
+
+#blink {
+    border-left: 3px solid #f8dd5c;
+    margin-left: 5px;
+    animation: blink-border 1.5s ease-in-out infinite;
+}
+
+@keyframes blink-border {
+	0%,  100%          {border-color: #f8dd5c;}
+	50%                {border-color: #fff;}
 }
