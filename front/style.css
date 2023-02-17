@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
+
 html, body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: 'Roboto Slab', sans-serif;
+    user-select: none;
 }
 
 main {
@@ -48,6 +51,14 @@ main {
     padding: 0.5rem;
     border-radius: 50px;
     margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    transition: color 0.2s ease-in-out;
+}
+
+#points.faded-text {
+    color: #f8dd5c;
 }
 
 button {
@@ -59,6 +70,7 @@ button {
     transition: background-color 0.2s ease-in-out;
     cursor: pointer;
     font-weight: bold;
+    font-family: 'Roboto Slab', sans-serif;
 }
 
 .theLetter {
@@ -91,6 +103,32 @@ button:hover {
 	animation: shake 0.5s ease-in-out 1 both;
 }
 
+#backdrop {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    flex-direction: column;
+}
+
+#words {
+    background-color: #97cde8;
+    max-width: 800px;
+    margin: 10rem 2rem 2rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 2px #0005;
+    font-weight: bold;
+    transition: transform 0.2s ease-out;
+    transform: translateX(0vh);
+}
+
+#words.moved {
+    transform: translateY(-40vh);
+}
+
 @keyframes shake {
 	0%,  100%          {transform: translateX(0);}
 	10%, 30%, 50%, 70% {transform: translateX(-5px);}
@@ -108,4 +146,17 @@ button:hover {
 @keyframes blink-border {
 	0%,  100%          {border-color: #f8dd5c;}
 	50%                {border-color: #fff;}
+}
+
+#end {
+    position: absolute;
+    background-color: #f8dd5c;
+    font-size: 1rem;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 20vh;
+    top: 0;
+    left: 0;
+    display: none;
 }

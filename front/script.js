@@ -1,17 +1,18 @@
 var word = "";
 var points;
+var usedWords = [];
 
-var letters = ['У', 'Т', 'Р', 'В', 'Њ', 'А', 'Е']
+var letters = ['А', 'Б', 'Т', 'Р', 'К', 'Н', 'О']
 
 const ranks =
     [
         {points: 0, rank: "Почетник"},
-        {points: 5, rank: "Добар"},
-        {points: 10, rank: "Солидан"},
-        {points: 20, rank: "Врло добар"},
-        {points: 30, rank: "Одличан"},
-        {points: 50, rank: "Изузетан"},
-        {points: 80, rank: "Геније"},
+        {points: 20, rank: "Добар"},
+        {points: 40, rank: "Солидан"},
+        {points: 80, rank: "Врло добар"},
+        {points: 150, rank: "Одличан"},
+        {points: 300, rank: "Изузетан"},
+        {points: 500, rank: "Геније"},
     ]
 
 const renderWord = () => {
@@ -34,7 +35,15 @@ const deleteWord = () => {
 
 const renderPoints = () => {
     const box = document.getElementById('points')
-    box.textContent = points
+    const rank = ranks.filter(r => r.points <= points).at(-1).rank
+    box.classList.add('faded-text')
+    setTimeout(() => box.innerHTML = `<div>${rank}</div><div>${points}</div>`, 200)
+    setTimeout(() => box.classList.remove('faded-text'), 200)    
+}
+
+const renderUsedWords = () => {
+    usedWordsHTML = usedWords.map(v => `<div>${v}</div>`).reduce((a, b) => a + b, "")
+    document.getElementById('words').innerHTML = usedWordsHTML
 }
 
 const shake = () => {
@@ -47,8 +56,11 @@ const shake = () => {
 const checkWord = () => {
     if (word === "") return shake()
 
-    const nl = word.split('').filter(l => l == letters[0])
-    if (nl === 0) return shake()
+    const nl = word.split('').filter(l => l === letters[0])
+    if (nl.length === 0) return shake()
+
+    const uw = usedWords.filter(w => w === word)
+    if(uw.length !== 0) return shake()
 
     return fetch('/words', {
         headers: {
@@ -65,12 +77,18 @@ const checkWord = () => {
         if (r.Found === "true") {
             points = points + 10 * word.length
             renderPoints()
+            usedWords = [...usedWords, word]
+            renderUsedWords()
             word = ""
             renderWord()
+
+            if (usedWords.length > 10)
+                document.getElementById('end').style.display = 'block'
+
         } else {
             return shake()
         }
-    }).catch(r => {})
+    }).catch(console.log)
 }
 
 const setLetters = () => {
@@ -98,6 +116,16 @@ const shuffleWord = () => {
             hex.children[1].classList.remove('faded-text')
         }
     }, 400)
+}
+
+const closeBackdrop = () => {
+    document.getElementById('words').classList.add('moved')
+    setTimeout(() => document.getElementById('backdrop').style.display = 'none', 200)
+}
+
+const openBackdrop = () => {
+    document.getElementById('backdrop').style.display = 'flex'
+    setTimeout(()=>document.getElementById('words').classList.remove('moved'), 10)
 }
 
 const setup = () => {

@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strings"
 
 	"golang.org/x/exp/slices"
 )
@@ -28,6 +29,10 @@ func main() {
 	err = json.Unmarshal(dic, &dictionary)
 	if err != nil {
 		panic(err)
+	}
+
+	for i, word := range dictionary {
+		dictionary[i] = strings.ToLower(word)
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {

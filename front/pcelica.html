@@ -9,36 +9,36 @@
 </head>
 <body>
   <main>
-    <div id="points"></div>
+    <div id="points" onclick="openBackdrop()"></div>
     <div id="line"></div>
     <svg viewBox="0 0 166 159" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="hive">
         <g id='h0' class="hex">
           <path class="hex" d="m109.0464362 94.607501-26.5203295 15.3115149-26.5203309-15.311515V63.9844573l26.5203317-15.31152 26.5203287 15.31152z" fill="#f8dd5c"/>
-          <text x="83" y="92" font-weight="700" font-size="35" font-family="sans-serif" text-anchor="middle">A</text>
+          <text x="83" y="92" font-weight="700" font-size="35" font-family="'Roboto Slab', sans-serif" text-anchor="middle">A</text>
         </g>
         <g id='h1' class="hex">
           <path d="m53.0406602 94.607501-26.5203295 15.3115149L-2e-7 94.6075009V63.9844573l26.5203317-15.31152 26.5203287 15.31152z" fill="#ece4bc"/>
-          <text x="26" y="92" font-weight="700" font-size="35" font-family="sans-serif" text-anchor="middle">A</text>
+          <text x="26" y="92" font-weight="700" font-size="35" font-family="'Roboto Slab', sans-serif" text-anchor="middle">A</text>
         </g>
         <g id='h2' class="hex">
           <path d="M81.0435482 45.934564 54.5232187 61.2460789l-26.5203309-15.311515V15.3115203L54.5232195 2e-7l26.5203287 15.31152z" fill="#ece4bc"/>
-          <text x="54" y="43" font-weight="700" font-size="35" font-family="sans-serif" text-anchor="middle">A</text>
+          <text x="54" y="43" font-weight="700" font-size="35" font-family="'Roboto Slab', sans-serif" text-anchor="middle">A</text>
         </g>
         <g id='h3' class="hex">
           <path d="m136.7972602 45.934564-26.5203295 15.3115149-26.5203309-15.311515V15.3115203L110.2769315 2e-7l26.5203287 15.31152z" fill="#ece4bc"/>
-          <text x="110" y="43" font-weight="700" font-size="35" font-family="sans-serif" text-anchor="middle">A</text>
+          <text x="110" y="43" font-weight="700" font-size="35" font-family="'Roboto Slab', sans-serif" text-anchor="middle">A</text>
         </g>
         <g id='h4' class="hex">
           <path d="m165.0522122 94.607501-26.5203295 15.3115149-26.5203309-15.311515V63.9844573l26.5203317-15.31152 26.5203287 15.31152z" fill="#ece4bc"/>
-          <text x="138" y="92" font-weight="700" font-size="35" font-family="sans-serif" text-anchor="middle">A</text>
+          <text x="138" y="92" font-weight="700" font-size="35" font-family="'Roboto Slab', sans-serif" text-anchor="middle">A</text>
         </g>
         <g id='h5' class="hex">
           <path d="m136.7972602 143.022172-26.5203295 15.3115149-26.5203309-15.311515v-30.6230437l26.5203317-15.31152 26.5203287 15.31152z" fill="#ece4bc"/>
-          <text x="110" y="140" font-weight="700" font-size="35" font-family="sans-serif" text-anchor="middle">A</text>
+          <text x="110" y="140" font-weight="700" font-size="35" font-family="'Roboto Slab', sans-serif" text-anchor="middle">A</text>
         </g>
         <g id='h6' class="hex">
           <path d="m81.0435482 143.022172-26.5203295 15.3115149-26.5203309-15.311515v-30.6230437l26.5203317-15.31152 26.5203287 15.31152z" fill="#ece4bc"/>
-          <text x="54" y="140" font-weight="700" font-size="35" font-family="sans-serif" text-anchor="middle">А</text>
+          <text x="54" y="140" font-weight="700" font-size="35" font-family="'Roboto Slab', sans-serif" text-anchor="middle">А</text>
         </g>
       </svg>
     <div id="buttons">
@@ -47,6 +47,15 @@
       <button onclick="checkWord()">Унеси</button>
     </div>
   </main>
+<div id="backdrop" onclick="closeBackdrop()">
+  <div id="words" class="moved">
+  </div>
+</div>
+<div id="end">
+  <div style="font-size: 2rem;">Твој резултат</div>
+  <div id="num" style="font-size: 8rem;">123</div>
+  <div style="font-size: 1.5rem;">Претплати се за још покушаја</div>
+</div>
 <script src="script.js"></script>
 </body>
 
