@@ -9,7 +9,14 @@
 </head>
 <body>
   <main>
-    <div id="points" onclick="openBackdrop()"></div>
+    <div>
+      <div id="points" onclick="openBackdrop()"></div>
+      <div id="dots">
+        <div></div><div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div><div></div>
+      </div>
+    </div>
     <div id="line"></div>
     <svg viewBox="0 0 166 159" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="hive">
         <g id='h0' class="hex">
@@ -48,13 +55,12 @@
     </div>
   </main>
 <div id="backdrop" onclick="closeBackdrop()">
-  <div id="words" class="moved">
-  </div>
+  <div id="words" class="moved"></div>
 </div>
 <div id="end">
   <div style="font-size: 2rem;">Твој резултат</div>
   <div id="num" style="font-size: 8rem;">123</div>
-  <div style="font-size: 1.5rem;">Претплати се за још покушаја</div>
+  <div id="end-words"></div>
 </div>
 <script src="script.js"></script>
 </body>
