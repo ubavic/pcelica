@@ -1,16 +1,15 @@
 var word = "";
-var points;
 var usedWords = [];
 
-var letters = ['А', 'Б', 'Т', 'Р', 'К', 'Н', 'О']
+var letters = ['Н', 'И', 'Ј', 'Д', 'К', 'В', 'О']
 
 const ranks =
     [
         {points: 0, rank: "Почетник"},
-        {points: 20, rank: "Добар"},
-        {points: 40, rank: "Солидан"},
-        {points: 80, rank: "Врло добар"},
-        {points: 150, rank: "Одличан"},
+        {points: 50, rank: "Добар"},
+        {points: 100, rank: "Солидан"},
+        {points: 150, rank: "Врло добар"},
+        {points: 200, rank: "Одличан"},
         {points: 300, rank: "Изузетан"},
         {points: 500, rank: "Геније"},
     ]
@@ -34,11 +33,14 @@ const deleteWord = () => {
 }
 
 const renderPoints = () => {
+    const points = usedWords.reduce((s, w) => 10 * w.length + s, 0)
     const box = document.getElementById('points')
-    const rank = ranks.filter(r => r.points <= points).at(-1).rank
-    box.classList.add('faded-text')
-    setTimeout(() => box.innerHTML = `<div>${rank}</div><div>${points}</div>`, 200)
-    setTimeout(() => box.classList.remove('faded-text'), 200)    
+    const rank = ranks.filter(r => r.points <= points).at(-1)?.rank
+    if (!!rank) {
+        box.classList.add('faded-text')
+        setTimeout(() => box.innerHTML = `<div>${rank}</div><div>${points}</div>`, 200)
+        setTimeout(() => box.classList.remove('faded-text'), 200)    
+    }
 }
 
 const renderUsedWords = () => {
@@ -75,20 +77,26 @@ const checkWord = () => {
         throw Error()
     }).then(r => {
         if (r.Found === "true") {
-            points = points + 10 * word.length
-            renderPoints()
             usedWords = [...usedWords, word]
+            renderPoints()
             renderUsedWords()
             word = ""
             renderWord()
+            colorDots()
+            updateStorage()
 
-            if (usedWords.length > 10)
-                document.getElementById('end').style.display = 'block'
+            if (usedWords.length > 15) end()
 
         } else {
             return shake()
         }
     }).catch(console.log)
+}
+
+const end = () => {
+    document.getElementById('end').style.display = 'flex'
+    usedWordsHTML = usedWords.map(v => `<div>${v}</div>`).reduce((a, b) => a + b, "")
+    document.getElementById('end-words').innerHTML = usedWordsHTML
 }
 
 const setLetters = () => {
@@ -128,12 +136,46 @@ const openBackdrop = () => {
     setTimeout(()=>document.getElementById('words').classList.remove('moved'), 10)
 }
 
+const colorDots = () => {
+    const dots = [...document.getElementById('dots').children]
+    dots.forEach((dot, index) => {
+        if (index < usedWords.length)
+            dot.style.backgroundColor = `#000`
+    })
+}
+
+const loadStorage = () => {
+    const state = JSON.parse(localStorage.getItem('state'))
+
+    if (!state) return
+    
+    const date = new Date(state?.date ?? 0)
+    const now = new Date()
+
+    const sameDate = date.getDate() === now.getDate()
+
+    if (!sameDate) return
+
+    if (!!state.usedWords && !!state.points) {
+        usedWords = state.usedWords
+        points = state.points
+    }
+}
+
+const updateStorage = () => {
+    const date = new Date()
+    localStorage.setItem('state', JSON.stringify({date, usedWords, points}))
+}
+
 const setup = () => {
     word = ""
     points = 0
-    renderPoints()
+    loadStorage()
     setLetters()
     renderWord()
+    colorDots()
+    renderUsedWords()
+    renderPoints()
 
     for (let i = 0; i < 7; i++) {
         let hex = document.getElementById(`h${i}`)
@@ -144,7 +186,6 @@ const setup = () => {
             renderWord()
         })
     }
-
 }
 
 
